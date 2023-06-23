@@ -9,20 +9,23 @@ import java.util.Objects;
 @Service
 public class CustomerService {
     @Autowired
-    CustomerRepository accountRepository;
-    @Autowired
     CustomerRepository customerRepository;
 
     public List<Customer> getAllCustomer() {
         return customerRepository.findAll();
     }
-
-    public String createAccount(Customer account) {
-        Customer cst = accountRepository.save(account);
-        if (Objects.nonNull(cst) && cst.getCustomerId() != null) {
-            return "Account " + cst.getCustomerId() + " Berhasil Dibuat";
-        } else {
-            return "Gagal Insert Customer";
-        }
+    public Customer saveCustomer(Customer customer){
+        return customerRepository.save(customer);
     }
+    public String updateCustomer(Customer customer, String customerId){
+        Customer cst = customerRepository.findById(customerId).get();
+        if (Objects.nonNull(customer.getCustomerName()) && !"".equalsIgnoreCase(customer.getCustomerName())){
+            cst.setCustomerName(customer.getCustomerName());
+    }
+        if (Objects.nonNull(customer.getCustomerName()) && !"".equalsIgnoreCase(customer.getCustomerName())){
+            cst.setCustomerName(customer.getCustomerName());
+    }
+        return String.valueOf(customerRepository.save(cst));
+    }
+    public void deleteCustomer(Integer customerId){}
 }

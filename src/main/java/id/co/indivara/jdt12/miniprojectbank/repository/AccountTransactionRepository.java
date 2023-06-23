@@ -1,7 +1,8 @@
 package id.co.indivara.jdt12.miniprojectbank.repository;
+import id.co.indivara.jdt12.miniprojectbank.entity.AccountTransaction;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import javax.transaction.Transactional;
 
-@Repository
-public interface AccountTransactionRepository extends JpaRepository<AccountTransactionRepository, Integer> {
+@Transactional
+public interface AccountTransactionRepository extends JpaRepository<AccountTransaction,String> {
 }

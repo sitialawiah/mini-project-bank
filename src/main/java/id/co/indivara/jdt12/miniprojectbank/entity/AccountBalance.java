@@ -3,9 +3,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "trx_account_balance")
@@ -15,16 +15,17 @@ import javax.persistence.*;
 @Builder
 public class AccountBalance {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Integer Id;
-    @Column(name = "account_id", updatable = false, insertable = false)
-    private Integer accountId;
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @Column(name = "balance_id")
+    private String balanceId;
 
-    @JoinColumn(name = "account_id")
+    @Column(name = "account_id")
+    private String  accountId;
+
     @OneToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    @JoinColumn(name = "account_id", updatable = false, insertable = false)
     private Account account;
     @Column(name = "balance")
-    private Integer balance;
+    private BigDecimal balance;
 }

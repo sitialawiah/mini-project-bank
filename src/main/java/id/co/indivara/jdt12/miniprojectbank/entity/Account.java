@@ -1,8 +1,10 @@
 package id.co.indivara.jdt12.miniprojectbank.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
@@ -15,15 +17,18 @@ import javax.persistence.*;
 @Builder //api buat class nya kayaknya
 public class Account {
     @Id
-    @Column(name = "accounts") //buat kalau nama d db sama nama d sini beda biar nyamain //di db
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer accountId; //di java
+    @Column(name = "account_id") //buat kalau nama d db sama nama d sini beda biar nyamain //di db
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    private String accountId; //di java
 
-    @Column(name = "customer_id", updatable = false, insertable = false) //buat generate d db
-    private Integer customerId;
-    @JoinColumn(name = "customer_id") //buat join kolom foreign key
+    @Column(name = "customer_id")
+    private String customerId;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.NO_ACTION) //buat menghapus di akun ini saja
+    @JoinColumn(name = "customer_id",insertable = false, updatable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE) //buat menghapus di akun ini saja
+    @JsonIgnore
     private Customer customer;
 
     @Column (name = "account_number")

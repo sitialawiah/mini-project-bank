@@ -3,8 +3,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
-import java.time.Instant;
 
 @Entity
 @Table(name= "mst_customer")
@@ -22,7 +22,7 @@ public class Customer {
     @Column(name = "username")
     private String username;
     @Column(name = "password")
-    private Instant password;
+    private String password;
     @Column(name = "no_ktp")
     private String noKtp;
     @Column(name = "no_telp")
