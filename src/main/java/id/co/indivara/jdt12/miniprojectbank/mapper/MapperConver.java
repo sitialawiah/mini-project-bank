@@ -7,13 +7,14 @@ import id.co.indivara.jdt12.miniprojectbank.entity.Account;
 import java.util.ArrayList;
 import java.util.List;
 
-
+//mengambil data json / mengconvert dari data json ke api
 public class MapperConver {
+    //hanya untuk account saja
     public static List<Account> getAllDataAccount(String json) throws JsonProcessingException {
         return new ObjectMapper().readValue(json, new TypeReference<List<Account>>() {
         });
     }
-    //untuk controller account
+    //untuk semua data
     public static <T> List<T> getAllData(String json, Class<T> elementClass)throws JsonProcessingException{
         ObjectMapper objectMapper = new ObjectMapper();
         CollectionType listType =

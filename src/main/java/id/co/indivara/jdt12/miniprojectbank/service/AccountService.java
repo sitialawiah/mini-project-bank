@@ -51,9 +51,9 @@ public class AccountService {
     }
 
     //history transaksi
-//    public HistoryTransaction historyTransaction(String accountId) throws Exception {
-//        Account account = accountRepository.findById(accountId).orElseThrow(()-> new Exception("pelanggan salah"));
-//        List<AccountTransaction> accountTransactions = AccountTransactionRepository.findAllByAccountTransaction(account);
-//        return new HistoryTransaction(account, accountTransactions);
-//    }
+    public HistoryTransaction historyTransaction(String accountId) throws Exception {
+        Account account = accountRepository.findById(accountId).orElseThrow(()-> new Exception("pelanggan salah"));
+        List<AccountTransaction> accountTransactions = accountTransactionRepository.findAllByTransactionId(account);
+        return new HistoryTransaction(account, accountTransactions);
+    }
 }

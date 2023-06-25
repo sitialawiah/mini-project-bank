@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class Account {
     @Id
     @Column(name = "account_id") //buat kalau nama d db sama nama d sini beda biar nyamain //di db
-    @GeneratedValue(generator = "system-uuid")
+    @GeneratedValue(generator = "system-uuid") //lebih saffty pake uuid, digenerate secara acak/random
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String accountId; //di java
 
@@ -27,8 +27,8 @@ public class Account {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id",insertable = false, updatable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE) //buat menghapus di akun ini saja
-    @JsonIgnore //memunculkan data ketika di join
+    @OnDelete(action = OnDeleteAction.CASCADE) //buat menghapus di akun ini saja / menghapus secara domino?????
+    @JsonIgnore //untuk tidak memunculkan data ketika di join / lebih diabaikan
     private Customer customer;
 
     @Column (name = "account_number")

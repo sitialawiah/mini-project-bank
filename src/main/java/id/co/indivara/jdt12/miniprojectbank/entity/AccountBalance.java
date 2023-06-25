@@ -23,7 +23,7 @@ public class AccountBalance {
     @Column(name = "account_id")
     private String  accountId;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "account_id", updatable = false, insertable = false)
     private Account account;
     @Column(name = "balance")

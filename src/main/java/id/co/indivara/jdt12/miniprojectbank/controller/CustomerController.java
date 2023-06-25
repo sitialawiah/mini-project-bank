@@ -12,25 +12,19 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @PostMapping("/savecustomer")
-    public Customer saveCustomer(@RequestBody Customer customer){
+@PostMapping("/savecustomer")
+public Customer saveCustomer(@RequestBody Customer customer){
         return customerService.saveCustomer(customer);
-    }
+        }
 
-    @GetMapping("/customer")
-    public List<Customer> getAllCustomer(){
+@GetMapping("/customer")
+public List<Customer> getAllCustomer(){
         return customerService.getAllCustomer();
-    }
+        }
 
     //get account statement
     @GetMapping("/cutomer/{customerId}")
-    public CustomerInfo getCustomerById(@PathVariable("customerId") String id) throws Exception {
+    public CustomerInfo getCustomerById(@PathVariable("customerId") String id)throws Exception{
         return customerService.detailCustomer(id);
     }
-
-    //get transaction
-//    @GetMapping("/customer/{customerId}")
-//    public CustomerStatement getCustomerById(@PathVariable("customerId") String id) throws Exception {
-//        return customerService.detailCustomer(id);
-//    }
 }

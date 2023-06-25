@@ -27,7 +27,7 @@ public class AccountTransaction {
     @Column(name = "account_id")
     private String accountId;
     @JoinColumn(name = "account_id", updatable = false, insertable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Account account;
 
