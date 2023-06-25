@@ -41,6 +41,7 @@ public class AccountTransaction {
     @Column(name = "amount")
     private BigDecimal amount;
     @Column(name="type_transaction")
+    @Enumerated(EnumType.STRING)
     private EnumTransaction typeTransaction;
 
     public enum EnumTransaction {

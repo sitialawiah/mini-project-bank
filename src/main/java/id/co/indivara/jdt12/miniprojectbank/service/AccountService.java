@@ -1,10 +1,13 @@
 package id.co.indivara.jdt12.miniprojectbank.service;
 import id.co.indivara.jdt12.miniprojectbank.entity.Account;
 import id.co.indivara.jdt12.miniprojectbank.entity.AccountBalance;
+import id.co.indivara.jdt12.miniprojectbank.entity.AccountTransaction;
 import id.co.indivara.jdt12.miniprojectbank.entity.Customer;
+import id.co.indivara.jdt12.miniprojectbank.model.HistoryTransaction;
 import id.co.indivara.jdt12.miniprojectbank.model.SaveAccount;
 import id.co.indivara.jdt12.miniprojectbank.repository.AccountBalanceRepository;
 import id.co.indivara.jdt12.miniprojectbank.repository.AccountRepository;
+import id.co.indivara.jdt12.miniprojectbank.repository.AccountTransactionRepository;
 import id.co.indivara.jdt12.miniprojectbank.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,4 +49,11 @@ public class AccountService {
         }
         return false;
     }
+
+    //history transaksi
+//    public HistoryTransaction historyTransaction(String accountId) throws Exception {
+//        Account account = accountRepository.findById(accountId).orElseThrow(()-> new Exception("pelanggan salah"));
+//        List<AccountTransaction> accountTransactions = AccountTransactionRepository.findAllByAccountTransaction(account);
+//        return new HistoryTransaction(account, accountTransactions);
+//    }
 }

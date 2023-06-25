@@ -28,7 +28,7 @@ public class Account {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id",insertable = false, updatable = false)
     @OnDelete(action = OnDeleteAction.CASCADE) //buat menghapus di akun ini saja
-    @JsonIgnore
+    @JsonIgnore //memunculkan data ketika di join
     private Customer customer;
 
     @Column (name = "account_number")

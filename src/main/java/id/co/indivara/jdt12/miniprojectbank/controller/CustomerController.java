@@ -1,11 +1,10 @@
 package id.co.indivara.jdt12.miniprojectbank.controller;
 import id.co.indivara.jdt12.miniprojectbank.entity.Customer;
+import id.co.indivara.jdt12.miniprojectbank.model.CustomerInfo;
 import id.co.indivara.jdt12.miniprojectbank.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -22,4 +21,16 @@ public class CustomerController {
     public List<Customer> getAllCustomer(){
         return customerService.getAllCustomer();
     }
+
+    //get account statement
+    @GetMapping("/cutomer/{customerId}")
+    public CustomerInfo getCustomerById(@PathVariable("customerId") String id) throws Exception {
+        return customerService.detailCustomer(id);
+    }
+
+    //get transaction
+//    @GetMapping("/customer/{customerId}")
+//    public CustomerStatement getCustomerById(@PathVariable("customerId") String id) throws Exception {
+//        return customerService.detailCustomer(id);
+//    }
 }

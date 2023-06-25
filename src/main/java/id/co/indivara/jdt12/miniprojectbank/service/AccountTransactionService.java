@@ -40,29 +40,45 @@ public class AccountTransactionService {
     @Transactional
     public AccountTransaction createWithdraw (AccountTransaction account)throws Exception {
         Account accountResult = accountRepository.findById(account.getAccountId()).orElseThrow(() -> new Exception("account tidak ditemukan"));
-        AccountBalance accountBalance = accountBalanceRepository.findById(account.getAccountId()).orElseThrow(() -> new Exception("account balance tidak ditemukan"));
+        AccountBalance accountBalance = accountBalanceRepository.findByAccount(accountResult).orElseThrow(() -> new Exception("account balance tidak ditemukan"));
         BigDecimal moneynotenought= accountBalance.getBalance().subtract(account.getAmount()); //uang kurang
+        if (moneynotenought.compareTo(BigDecimal.ZERO)<0){
+            throw new Exception("Uang nya ga cukup");
+        }
         account.getTypeTransaction(); //type dari transaksi (withdraw)
         account.setAccount(accountResult);
         account.setTypeTransaction(AccountTransaction.EnumTransaction.WITHDRAW);
         account.setCreatedDate(Instant.now());
         accountTransactionRepository.save(account);
 
-        accountBalance.setBalance(accountBalance.getBalance().min(account.getAmount()));
+        accountBalance.setBalance(moneynotenought);
         accountBalanceRepository.save(accountBalance);
     return accountTransactionRepository.save(account);
     }
-
+    
     @Transactional
     public AccountTransaction createTransfer (AccountTransaction account)throws Exception {
         Account accountResult = accountRepository.findById(account.getAccountId()).orElseThrow(() -> new Exception("account tidak ditemukan"));
-        AccountBalance accountBalance = accountBalanceRepository.findById(account.getAccountId()).orElseThrow(() -> new Exception("account balance tidak ditemukan"));
+        AccountBalance accountBalance = accountBalanceRepository.findByAccount(accountResult).orElseThrow(() -> new Exception("account balance tidak ditemukan"));
+        Account accountDestination = accountRepository.findByAccountNumber(account.getAccountNumber()).orElseThrow(()-> new Exception("Tujuannya Tidak Ketemu"));
+        AccountBalance accountBalanceDestination = accountBalanceRepository.findByAccount(accountDestination).orElseThrow(()-> new Exception("Balance / Saldo Tujuan Tidak Ada"));
+
+        BigDecimal moneynotenought = accountBalance.getBalance().subtract(account.getAmount()); //uang ga cukup
+        if (moneynotenought.compareTo(BigDecimal.ZERO)<0){
+            throw new Exception("Uang nya ga cukup");
+        }
+
+        BigDecimal moneyDestinationBalance =accountBalanceDestination.getBalance().add(account.getAmount());
+
         account.setAccount(accountResult);
         account.setTypeTransaction(AccountTransaction.EnumTransaction.TRANSFER);
         account.setCreatedDate(Instant.now());
         accountTransactionRepository.save(account);
-
         accountBalance.setBalance(accountBalance.getBalance().min(account.getAmount()));
+
+        accountBalanceDestination.setBalance(moneyDestinationBalance);
+        accountBalanceRepository.save(accountBalanceDestination);
+
         accountBalanceRepository.save(accountBalance);
         return accountTransactionRepository.save(account);
     }

@@ -3,7 +3,6 @@ import id.co.indivara.jdt12.miniprojectbank.entity.Account;
 import id.co.indivara.jdt12.miniprojectbank.model.SaveAccount;
 import id.co.indivara.jdt12.miniprojectbank.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -15,8 +15,10 @@ import javax.persistence.*;
 public class Customer {
     @Id
     @Column(name = "customer_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer customerId;
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    private String customerId;
+
     @Column(name = "customer_name")
     private String customerName;
     @Column(name = "username")
