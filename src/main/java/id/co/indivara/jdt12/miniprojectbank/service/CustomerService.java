@@ -25,7 +25,7 @@ public class CustomerService {
 
     //mandatory customer statemen
     public CustomerInfo detailCustomer(String customerId) throws Exception{
-        Customer customer = customerRepository.findById(customerId).orElseThrow(()-> new Exception("Customer Error"));
+        Customer customer = customerRepository.findById(customerId).orElseThrow(()-> new Exception("Customer Tidak Ditemukan"));
         List<Account>  accounts = accountRepository.findAllByCustomer(customer);
         return new CustomerInfo(customer, accounts);
     }

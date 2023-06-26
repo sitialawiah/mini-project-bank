@@ -40,7 +40,7 @@ public class AccountTransactionService {
     @Transactional
     public AccountTransaction createWithdraw (AccountTransaction account)throws Exception {
         Account accountResult = accountRepository.findById(account.getAccountId()).orElseThrow(() -> new Exception("account tidak ditemukan"));
-        AccountBalance accountBalance = accountBalanceRepository.findByAccount(accountResult).orElseThrow(() -> new Exception("account balance tidak ditemukan"));
+        AccountBalance accountBalance = accountBalanceRepository.findByAccount(accountResult).orElseThrow(() -> new Exception("balance / saldo tidak cukup"));
         BigDecimal moneynotenought= accountBalance.getBalance().subtract(account.getAmount()); //uang kurang
         if (moneynotenought.compareTo(BigDecimal.ZERO)<0){
             throw new Exception("Uang nya ga cukup");
@@ -59,9 +59,9 @@ public class AccountTransactionService {
     @Transactional
     public AccountTransaction createTransfer (AccountTransaction account)throws Exception {
         Account accountResult = accountRepository.findById(account.getAccountId()).orElseThrow(() -> new Exception("account tidak ditemukan"));
-        AccountBalance accountBalance = accountBalanceRepository.findByAccount(accountResult).orElseThrow(() -> new Exception("account balance tidak ditemukan"));
+        AccountBalance accountBalance = accountBalanceRepository.findByAccount(accountResult).orElseThrow(() -> new Exception("account balance/saldo tidak cukup"));
         Account accountDestination = accountRepository.findByAccountNumber(account.getAccountNumber()).orElseThrow(()-> new Exception("Tujuannya Tidak Ketemu"));
-        AccountBalance accountBalanceDestination = accountBalanceRepository.findByAccount(accountDestination).orElseThrow(()-> new Exception("Balance / Saldo Tujuan Tidak Ada"));
+        AccountBalance accountBalanceDestination = accountBalanceRepository.findByAccount(accountDestination).orElseThrow(()-> new Exception("Balance / Saldo Tujuan Ditemukan"));
 
         BigDecimal moneynotenought = accountBalance.getBalance().subtract(account.getAmount()); //uang ga cukup
         if (moneynotenought.compareTo(BigDecimal.ZERO)<0){

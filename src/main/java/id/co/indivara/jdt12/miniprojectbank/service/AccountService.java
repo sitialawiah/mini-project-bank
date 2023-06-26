@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class AccountService {
@@ -51,9 +52,10 @@ public class AccountService {
     }
 
     //history transaksi
-    public HistoryTransaction historyTransaction(String accountId) throws Exception {
-        Account account = accountRepository.findById(accountId).orElseThrow(()-> new Exception("pelanggan salah"));
-        List<AccountTransaction> accountTransactions = accountTransactionRepository.findAllByTransactionId(account);
+    public HistoryTransaction historyTransaction(String accountId) throws NoSuchElementException { //exception: exception biasa //NoSuchElementException: objek pelanggan
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(()-> new NoSuchElementException("akun tidak ditemukan"));
+        List<AccountTransaction> accountTransactions = accountTransactionRepository.findAllByAccount(account);
         return new HistoryTransaction(account, accountTransactions);
     }
 }

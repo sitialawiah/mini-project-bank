@@ -22,7 +22,7 @@ public List<Customer> getAllCustomer(){
         return customerService.getAllCustomer();
         }
 
-    //get account statement
+    //get account statement/customer info
     @GetMapping("/cutomer/{customerId}")
     public CustomerInfo getCustomerById(@PathVariable("customerId") String id)throws Exception{
         return customerService.detailCustomer(id);

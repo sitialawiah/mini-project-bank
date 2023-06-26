@@ -25,7 +25,7 @@ import java.util.List;
 @SpringBootTest
 @AutoConfigureMockMvc
 
-class MiniprojectbankMasterTest {
+class MiniprojectbankAccountTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -39,7 +39,7 @@ class MiniprojectbankMasterTest {
         this.mockMvc = MockMvcBuilders.standaloneSetup(accountController).build();
     }
     @Test
-    public void getAllaccount() throws Exception {
+    public void getAllAccount() throws Exception {
         List<Account> accountsChecker = accountService.getAllAccount();
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/account")
