@@ -7,5 +7,5 @@ import java.util.List;
 
 @Transactional
 public interface AccountTransactionRepository extends JpaRepository<AccountTransaction,String> {
-//    List<Account> findAllByAccountTransaction(Customer customer);
+    List<AccountTransaction>findAllByAccount (Account account);
 }
